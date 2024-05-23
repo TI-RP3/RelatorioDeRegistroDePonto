@@ -11,10 +11,10 @@ def createCollaboratorsList(table_path):
     for row in worksheet.iter_rows():
         for cell in row:
             if cell.value == "Colaborador":
-                nomeColaborador = cell.offset(column=1).value
+                nomeColaborador = cell.offset(column=1).value # Pega o valor da célula na coluna seguinte (ao lado de "Colaborador")
                 
-                colaborador = Collaborator(nomeColaborador,"","","","")
-                collaborators.append(colaborador)
+                colaborador = Collaborator(nomeColaborador,firstEntry="",firstExit="",secondEntry="",secondExit="")
+                collaborators.append(colaborador) # Insere o novo colaborador ao final da lista de colaboradores
     
     return collaborators
 
