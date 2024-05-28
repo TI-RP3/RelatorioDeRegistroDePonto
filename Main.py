@@ -21,7 +21,7 @@ def createDailyLists(worksheet):
         for cell in row:            
             if cell.value == "Colaborador":
                 nomeColaborador = cell.offset(column=1).value
-                skipCell = cell.row
+                headersCells = cell.row
                 print(nomeColaborador)
             elif (
                 cell.value != "Data" and
@@ -33,7 +33,7 @@ def createDailyLists(worksheet):
                     cell.column == 7 or 
                     cell.column == 8 or 
                     cell.column == 9) and
-                    cell.row > skipCell + 1
+                    cell.row > headersCells + 1
                 ):
                     print(cell.value)
 
