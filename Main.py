@@ -2,9 +2,7 @@ from openpyxl import load_workbook
 
 from Collaborator import Collaborator
 
-def createCollaboratorsList(table_path):
-    workbook = load_workbook(table_path)
-    worksheet = workbook.active
+def createCollaboratorsList(worksheet):
     
     collaborators = []
     
@@ -18,11 +16,33 @@ def createCollaboratorsList(table_path):
     
     return collaborators
 
+def createDailyLists(worksheet,collaborators):
+    for row in worksheet.iter_rows():
+        for cell in row:
+            if (
+                cell.value == "Data" or 
+                cell.value == "TOTAIS" or 
+                cell.value == "Resumo"
+            ): continue
+            
+            if cell.value == "Colaborador":
+                nomeColaborador = cell.offset(column=1).value 
+            
+            
+            
+            
+            
+                    
+                    
+                
+
 def main():
+    workbook = load_workbook("./Pontomais_-_Jornada_(01.05.2024_-_14.05.2024)_-_44082604.xlsx")
+    worksheet = workbook.active
     
-    colaboradores = createCollaboratorsList( # Caminho para a tabela excel
-        "./Pontomais_-_Jornada_(01.05.2024_-_14.05.2024)_-_44082604.xlsx"
-    )
+    colaboradores = createCollaboratorsList(worksheet)
+    
+    createDailyLists(worksheet,colaboradores)
     
     for c in range(0, colaboradores.__len__()):
         print(colaboradores[c].__str__())
