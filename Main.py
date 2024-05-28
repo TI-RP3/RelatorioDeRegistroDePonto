@@ -16,25 +16,26 @@ def createCollaboratorsList(worksheet):
     
     return collaborators
 
-def createDailyLists(worksheet,collaborators):
-    for row in worksheet.iter_rows():
-        for cell in row:
-            if (
-                cell.value == "Data" or 
-                cell.value == "TOTAIS" or 
-                cell.value == "Resumo"
-            ): continue
-            
+def createDailyLists(worksheet):
+    for row in worksheet.iter_rows(min_row=3):
+        for cell in row:            
             if cell.value == "Colaborador":
-                nomeColaborador = cell.offset(column=1).value 
-            
-            
-            
-            
-            
-                    
-                    
-                
+                nomeColaborador = cell.offset(column=1).value
+                skipCell = cell.row
+                print(nomeColaborador)
+            elif (
+                cell.value != "Data" and
+                cell.value != "TOTAIS" and
+                cell.value != "Resumo"
+            ):
+                if (
+                    (cell.column == 6 or 
+                    cell.column == 7 or 
+                    cell.column == 8 or 
+                    cell.column == 9) and
+                    cell.row > skipCell + 1
+                ):
+                    print(cell.value)
 
 def main():
     workbook = load_workbook("./Pontomais_-_Jornada_(01.05.2024_-_14.05.2024)_-_44082604.xlsx")
@@ -42,10 +43,10 @@ def main():
     
     colaboradores = createCollaboratorsList(worksheet)
     
-    createDailyLists(worksheet,colaboradores)
+    createDailyLists(worksheet)
     
-    for c in range(0, colaboradores.__len__()):
-        print(colaboradores[c].__str__())
+    """ for c in range(0, colaboradores.__len__()):
+        print(colaboradores[c].__str__()) """
 
 if __name__ == "__main__":
     main()
