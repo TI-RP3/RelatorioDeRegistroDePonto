@@ -23,29 +23,22 @@ def createDailyLists(worksheet):
         if (row.__getitem__(0).value == "Colaborador"):
             nomeColaborador = row.__getitem__(1).value
             print(nomeColaborador)
-            skipRow = i + 2 + 3
-            
-        if (row.__getitem__(0).value == "Data" or 
-            row.__getitem__(0).value == "Resumo"):
-            skipRow = i = 1  + 3
-
-        if (row.__getitem__(0).value == "TOTAIS"):
-            skipRow = i + 2 + 3
-        
-        for cell in row:            
-            """ if cell.value == "Colaborador":
-                nomeColaborador = cell.offset(column=1).value
-                skipRow = cell.row + 1
-                print(nomeColaborador) """
-                
-            if (
-                (cell.column == 6 or 
-                cell.column == 7 or 
-                cell.column == 8 or 
-                cell.column == 9) and
-                cell.row > skipRow
-            ):
-                print(cell.value)
+            print(i)
+            skipRow = i + 1 + 3
+        elif (
+            row.__getitem__(0).value != "Data" and 
+            row.__getitem__(0).value != "Resumo" and 
+            row.__getitem__(0).value != "TOTAIS"
+        ):
+            for cell in row:
+                if (
+                    (cell.column == 6 or 
+                    cell.column == 7 or 
+                    cell.column == 8 or 
+                    cell.column == 9) and
+                    cell.row > skipRow
+                ):
+                    print(cell.value)
 
 def main():
     workbook = load_workbook("./Pontomais_-_Jornada_(01.05.2024_-_14.05.2024)_-_44082604.xlsx")
