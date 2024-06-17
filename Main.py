@@ -5,12 +5,25 @@ from Collaborator import Collaborator
 def createDailyLists(worksheet):
     general_list = []
     collaborators_info = {}
+    days = []
+    period = 14;  # Transformar em parâmetro da função!!!
     
     for i, row in enumerate(worksheet.iter_rows(min_row=3)):
         if row[0].value == "Colaborador":
             nomeColaborador = row[1].value
-            collaborators_info[nomeColaborador] = [] # 
-        elif row[0].value not in ["Data", "Resumo", "TOTAIS"]:
+            collaborators_info[nomeColaborador] = []
+        elif (
+            ("Seg" in row[0].value or
+            "Ter" in row[0].value or
+            "Qua" in row[0].value or
+            "Qui" in row[0].value or
+            "Sex" in row[0].value or
+            "Sáb" in row[0].value or
+            "Dom" in row[0].value) and
+            (i > 1 and i <= period + 3)
+        ):
+            days.append(row[0].value[5:10].replace("/", "."))                
+        elif row[0].value not in ["Data", "Resumo", "TOTAIS"]:            
             firstEntry = row[5].value
             firstExit = row[6].value
             secondEntry = row[7].value
@@ -22,10 +35,13 @@ def createDailyLists(worksheet):
     max_entries = max(len(entries) for entries in collaborators_info.values())
     for _ in range(max_entries):
         general_list.append([])
+        
+    for j in range(len(days)):
+        general_list[j].append(days[j])
 
-    for collaborator, entries in collaborators_info.items():
-        for i, entry in enumerate(entries):
-            general_list[i].append(entry)
+    for collaborators, entries in collaborators_info.items():
+        for j, entry in enumerate(entries):
+            general_list[j].append(entry)
 
     return general_list
 
@@ -37,7 +53,7 @@ def main():
     
     print("[\n")
     for i, daily_list in enumerate(general_list):
-        print(f"\t[ # dia: {i+1}:\n")
+        print(f"\t[ # dia: ")
         for collaborator in daily_list:
             print(collaborator.__str__() + "\n")
         print("\t],\n")
