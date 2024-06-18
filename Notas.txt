@@ -1,0 +1,16 @@
+# Para a interface:
+
+_> Verificação/Atualização da tabela modelo
+_> Seleção das tabelas Ponto Mais
+
+# Para o código:
+
+_> Leitura da tabela Ponto Mais (feito)
+
+_> Povoamento da tabela modelo (caso de uso - 1º uso do app)
+- o usuário abre o aplicativo
+- na sessão "Tabela modelo", o usuário clica em "Inserir tabela"
+- na sessão "Gerar relatório", o usuário clica no botão "Selecionar tabelas"
+- o usuário seleciona os arquivos e insere na lista de tabelas
+- o usuário clica no botão "Gerar relatório"
+- o usuário salva a nova tabela no diretório de sua escola
