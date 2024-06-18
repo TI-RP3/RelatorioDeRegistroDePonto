@@ -2,11 +2,10 @@ from openpyxl import load_workbook
 
 from Collaborator import Collaborator
 
-def createDailyLists(worksheet):
+def createDailyLists(worksheet, period):
     general_list = []
     collaborators_info = {}
     days = []
-    period = 14;  # Transformar em parâmetro da função!!!
     
     for i, row in enumerate(worksheet.iter_rows(min_row=3)):
         if row[0].value == "Colaborador":
@@ -46,13 +45,14 @@ def createDailyLists(worksheet):
     return general_list
 
 def main():
-    workbook = load_workbook("./Pontomais_-_Jornada_(01.05.2024_-_14.05.2024)_-_44082604.xlsx")
-    worksheet = workbook.active
+    periodoObservado = 14
+    pontoMaisWorkbook = load_workbook("./Pontomais_-_Jornada_(01.05.2024_-_14.05.2024)_-_44082604.xlsx")
+    pontoMaisWorksheet = pontoMaisWorkbook.active
     
-    general_list = createDailyLists(worksheet)
+    listaDeHorariosPorColaborador = createDailyLists(pontoMaisWorksheet, periodoObservado)
     
     print("[\n")
-    for i, daily_list in enumerate(general_list):
+    for i, daily_list in enumerate(listaDeHorariosPorColaborador):
         print(f"\t[ # dia: ")
         for collaborator in daily_list:
             print(collaborator.__str__() + "\n")
