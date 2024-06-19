@@ -5,7 +5,6 @@ from datetime import datetime
 import eel.edge
 
 eel.init('web')
-eel.start('index.html')
 
 @eel.expose
 def get_random_name():
