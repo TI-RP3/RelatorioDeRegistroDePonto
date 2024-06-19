@@ -1,5 +1,4 @@
 from openpyxl import load_workbook
-
 from Collaborator import Collaborator
 
 def getDailyEntries(worksheet, period):
@@ -44,20 +43,33 @@ def getDailyEntries(worksheet, period):
 
     return general_list
 
+def readTemplateWorksheet(file_name):
+    wb = load_workbook(file_name)
+    template_ws = wb.active
+    new_ws = wb.copy_worksheet(template_ws)
+    new_ws.title = "01.05"
+    wb.save(file_name)
+
 def main():
-    period_observed = 14
-    app_workbook = load_workbook("./Pontomais_-_Jornada_(01.05.2024_-_14.05.2024)_-_44082604.xlsx")
-    app_worksheet = app_workbook.active
+    app_wb_name = "./Pontomais_-_Jornada_(01.05.2024_-_14.05.2024)_-_44082604.xlsx"
+    template_wb_name = "./Relatório de Registro de ponto - Maio 2024.xlsx"
+    #app_workbook = load_workbook(app_wb_name)
+    #app_worksheet = app_workbook.active
+    #period_observed = 14
     
-    daily_entries_per_collab = getDailyEntries(app_worksheet, period_observed)
+    #daily_entries_per_collab = getDailyEntries(app_worksheet, period_observed)
     
-    print("[\n")
+    readTemplateWorksheet(template_wb_name)
+    
+    """ print("[\n")
     for _, daily_list in enumerate(daily_entries_per_collab):
         print(f"\t[ # dia: ")
         for collaborator in daily_list:
             print(collaborator.__str__() + "\n")
         print("\t],\n")
-    print("]")
+    print("]") """
+    
+    ...
 
 if __name__ == "__main__":
     main()
