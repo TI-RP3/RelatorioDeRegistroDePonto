@@ -7,7 +7,7 @@ _> Seleção das tabelas Ponto Mais
 
 _> Leitura da tabela Ponto Mais (feito)
 
-_> Ler tabela modelo e gerar cópia (nomear nova aba com a data da lista atual)
+_> Ler tabela modelo e gerar nova planilha (cópia) dentro do mesmo arquivo (nomear nova planilha com a data da lista atual)
 
 _> Povoamento da tabela modelo (caso de uso - 1º uso do app)
 - o usuário abre o aplicativo
