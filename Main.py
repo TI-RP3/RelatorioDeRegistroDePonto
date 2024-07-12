@@ -1,4 +1,7 @@
+import os
+from tkinter import Tk, Button, Label, Listbox, END, filedialog, messagebox
 from openpyxl import load_workbook
+
 from Collaborator import Collaborator
 
 def getDailyEntries(worksheet, period):
@@ -47,19 +50,62 @@ def readTemplateWorksheet(file_name):
     wb = load_workbook(file_name)
     template_ws = wb.active
     new_ws = wb.copy_worksheet(template_ws)
-    new_ws.title = "01.05"
+    new_ws.title = "02.05"
     wb.save(file_name)
 
+def selectFiles(listbox):
+    file_paths = filedialog.askopenfilenames(title="Selecione os arquivos .xlsx", filetypes=[("Excel files", "*.xlsx")])
+    if file_paths:
+        for file in file_paths:
+            listbox.insert(END, file)
+
+def confirmSelection():
+    print("Enviou")
+    
+def exitProgram(root):
+    root.destroy()
+    
 def main():
-    app_wb_name = "./Pontomais_-_Jornada_(01.05.2024_-_14.05.2024)_-_44082604.xlsx"
-    template_wb_name = "./Relatório de Registro de ponto - Maio 2024.xlsx"
+    root = Tk()
+    root.title("Relatório Digital de Registro de Ponto")
+    root.geometry("400x400")
+    
+    label = Label(root, text='Selecione os arquivos ".xlsx"')
+    label.pack(pady=10)
+    
+    listbox = Listbox(root, width=50, height=15)
+    listbox.pack(pady=10)
+    
+    select_button = Button(root, text="Adicionar arquivos", command=lambda: selectFiles(listbox))
+    select_button.pack(pady=5)
+    
+    confirm_button = Button(root, text="Confirmar", command=confirmSelection)
+    confirm_button.pack(pady=5)
+
+    exit_button = Button(root, text="Sair", command=lambda: exitProgram(root))
+    exit_button.pack(pady=5)
+
+    root.mainloop()
+    
+    """ pontoMais_files = selectFiles()
+    
+    if not pontoMais_files:
+        print("Nenhum arquivo selecionado. O programa será encerrado")
+        return
+    
+    print("Arquivos adicionados:")
+    for file in pontoMais_files:
+        print(f" - {file}") """
+    
+    #template_wb_name = "./Relatório de Registro de ponto - Maio 2024.xlsx"
+    #app_wb_name = "./Pontomais_-_Jornada_(01.05.2024_-_14.05.2024)_-_44082604.xlsx"
     #app_workbook = load_workbook(app_wb_name)
     #app_worksheet = app_workbook.active
     #period_observed = 14
     
     #daily_entries_per_collab = getDailyEntries(app_worksheet, period_observed)
     
-    readTemplateWorksheet(template_wb_name)
+    #readTemplateWorksheet(template_wb_name)
     
     """ print("[\n")
     for _, daily_list in enumerate(daily_entries_per_collab):
